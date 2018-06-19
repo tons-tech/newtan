@@ -1,0 +1,35 @@
+
+<%= react_component("Mainpage", {name: "unknown"}) %>
+
+<div style="margin: 20px;"></div>
+
+<% if user_signed_in? %>
+  <strong><%= link_to current_user.username, pages_show_path %></strong>
+  <%= link_to 'プロフィール変更', edit_user_registration_path %>
+  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'サインアップ', new_user_registration_path %>
+  <%= link_to 'ログイン', new_user_session_path %>
+<% end %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+  <% @articles.each do |a| %>
+
+  <div style="margin: 20px; border-bottom: 2px solid #e8e8e8">
+    <div class="media">
+      <a href="<%= a['url'] %>">
+        <img src="<%= a['urlToImage'] %>" width="300px" alt="<%= a['title'] %>" />
+      </a>
+      <div class="media-body">
+        <h4><%= a['title'] %></h4>
+        <div>
+          <cite>By <%= a['author'] %>, <%= a['source']['name'] %></cite>
+        </div>
+        <p><%= a['description'] %></p>
+        <p><%= link_to 'read full article', a['url'] %></p>
+      </div>
+    </div>
+
+  </div>
+  <% end %>
